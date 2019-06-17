@@ -3,19 +3,16 @@ access_log off;
 server {
     listen 80;
     server_name localhost;
+    proxy_pass ${SERVICE_GATEWAY_URL};
+    proxy_set_header x-nav-apiKey ${SERVICE_GATEWAY_KEY};
 
-   location = /isAlive {
+    location = /isAlive {
         return 200 "alive";
         add_header Content-Type text/plain;
-   }
+    }
 
-   location = /isReady {
+    location = /isReady {
         return 200 "ready";
         add_header Content-Type text/plain;
-   }
-
-   location /api {
-       proxy_pass ${SERVICE_GATEWAY_URL};
-       proxy_set_header x-nav-apiKey ${SERVICE_GATEWAY_KEY};
-   }
+    }
 }
