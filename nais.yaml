@@ -6,7 +6,7 @@ metadata:
   labels:
     team: teamsykefravr
 spec:
-  image: repo.adeo.no:5443/syfo/syfoproxy:{{version}}
+  image: navikt/syfoproxy:{{version}}
   port: 80
   team: teamsykefravr
   liveness:
