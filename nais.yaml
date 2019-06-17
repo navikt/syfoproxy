@@ -11,13 +11,14 @@ spec:
   team: teamsykefravr
   liveness:
     path: /isAlive
-    initialDelay: 10
+    initialDelay: 0
+    periodSeconds: 5
     timeout: 1
-    periodSeconds: 10
     failureThreshold: 3
   readiness:
     path: /isReady
-    initialDelay: 10
+    initialDelay: 0
+    periodSeconds: 5
     timeout: 1
   resources:
     limits:
