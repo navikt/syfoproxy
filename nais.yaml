@@ -30,6 +30,7 @@ spec:
     min: 1
     max: 2
     cpuThresholdPercentage: 90
-  vault.enabled: true
+  vault:
+    enabled: true
   ingresses:
     - "https://{{application_name}}.nais.oera-q.local"
