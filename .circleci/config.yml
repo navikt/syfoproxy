@@ -8,7 +8,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Build docker image
-          command: docker build -t navikt/syfoproxy:${CIRCLE_SHA1}.
+          command: docker build -t navikt/syfoproxy:$CIRCLE_SHA1.
       - run:
           name: Release docker image
           command: |
@@ -16,11 +16,11 @@ jobs:
 
             docker tag navikt/syfoproxy:latest -f "navikt/syfoproxy:$CIRCLE_SHA1"
 
-            docker push navikt/syfoproxy:${CIRCLE_SHA1}
+            docker push navikt/syfoproxy:$CIRCLE_SHA1
             docker push navikt/syfoproxy:latest
       - run: # Username and password is set through $DEPLOYMENT_USERNAME and $DEPLOYMENT_PASSWORD
           name: Create deployment request for development
-          command: deployment-cli deploy create --cluster=dev-sbs --repository=navikt/syfoproxy --team=teamsykefravr -r=nais.yaml --version=${CIRCLE_SHA1} --vars=syfotekster/dev-sbs.json
+          command: deployment-cli deploy create --cluster=dev-sbs --repository=navikt/syfoproxy --team=teamsykefravr -r=nais.yaml --version=$CIRCLE_SHA1 --vars=syfotekster/dev-sbs.json
 #      - run: # Username and password is set through $DEPLOYMENT_USERNAME and $DEPLOYMENT_PASSWORD
 #          name: Create deployment request for prod
 #          command: deployment-cli deploy create --cluster=prod-fss --repository=navikt/syfoproxy --team=teamsykefravr -r=nais.yaml --version=${CIRCLE_SHA1}
