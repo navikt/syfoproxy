@@ -14,6 +14,7 @@ jobs:
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
             docker push navikt/syfoproxy:${CIRCLE_SHA1}
+            docker push navikt/syfoproxy:latest
       - run: # Username and password is set through $DEPLOYMENT_USERNAME and $DEPLOYMENT_PASSWORD
           name: Create deployment request for development
           command: deployment-cli deploy create --cluster=dev-sbs --repository=navikt/syfoproxy --team=teamsykefravr -r=nais.yaml --version=${CIRCLE_SHA1} --vars=syfotekster/dev-sbs.json
