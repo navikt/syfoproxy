@@ -14,7 +14,7 @@ server {
         add_header Content-Type text/plain;
    }
 
-   location /api/ {
+   location / {
        proxy_pass ${SERVICE_GATEWAY_URL};
        proxy_set_header x-nav-apiKey ${SERVICE_GATEWAY_KEY};
    }
