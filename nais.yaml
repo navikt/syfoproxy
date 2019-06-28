@@ -35,3 +35,5 @@ spec:
     enabled: true
   ingresses:
     - "https://{{application_name}}.nais.oera-q.local"
+    - "https://{{application_name}}-q.nav.no"
+    - "https://{{application_name}}.nav.no"
