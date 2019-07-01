@@ -19,8 +19,11 @@ jobs:
             docker push navikt/syfoproxy:${CIRCLE_SHA1}
             docker push navikt/syfoproxy:latest
       - run: # Username and password is set through $DEPLOYMENT_USERNAME and $DEPLOYMENT_PASSWORD
-          name: Create deployment request for development
+          name: Create deployment request for syfotekster proxy in development
           command: deployment-cli deploy create --cluster=dev-sbs --repository=navikt/syfoproxy --team=teamsykefravr -r=nais.yaml --version=$CIRCLE_SHA1 --vars=syfotekster/dev-sbs.json
+      - run: # Username and password is set through $DEPLOYMENT_USERNAME and $DEPLOYMENT_PASSWORD
+          name: Create deployment request for syfosmregisterproxy in development
+          command: deployment-cli deploy create --cluster=dev-sbs --repository=navikt/syfoproxy --team=teamsykefravr -r=nais.yaml --version=$CIRCLE_SHA1 --vars=syfosmregister/dev-sbs.json
 #      - run: # Username and password is set through $DEPLOYMENT_USERNAME and $DEPLOYMENT_PASSWORD
 #          name: Create deployment request for prod
 #          command: deployment-cli deploy create --cluster=prod-fss --repository=navikt/syfoproxy --team=teamsykefravr -r=nais.yaml --version=${CIRCLE_SHA1}
