@@ -1,0 +1,6 @@
+{
+    "application_name": "syfoteksterproxy",
+    "ingresses": [
+        "https://syfoteksterproxy.nav.no"
+    ]
+}

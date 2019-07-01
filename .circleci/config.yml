@@ -19,14 +19,17 @@ jobs:
             docker push navikt/syfoproxy:${CIRCLE_SHA1}
             docker push navikt/syfoproxy:latest
       - run: # Username and password is set through $DEPLOYMENT_USERNAME and $DEPLOYMENT_PASSWORD
-          name: Create deployment request for syfotekster proxy in development
+          name: Create deployment request for syfoteksterproxy in development
           command: deployment-cli deploy create --cluster=dev-sbs --repository=navikt/syfoproxy --team=teamsykefravr -r=nais.yaml --version=$CIRCLE_SHA1 --vars=syfotekster/dev-sbs.json
       - run: # Username and password is set through $DEPLOYMENT_USERNAME and $DEPLOYMENT_PASSWORD
           name: Create deployment request for syfosmregisterproxy in development
           command: deployment-cli deploy create --cluster=dev-sbs --repository=navikt/syfoproxy --team=teamsykefravr -r=nais.yaml --version=$CIRCLE_SHA1 --vars=syfosmregister/dev-sbs.json
-#      - run: # Username and password is set through $DEPLOYMENT_USERNAME and $DEPLOYMENT_PASSWORD
-#          name: Create deployment request for prod
-#          command: deployment-cli deploy create --cluster=prod-fss --repository=navikt/syfoproxy --team=teamsykefravr -r=nais.yaml --version=${CIRCLE_SHA1}
+      - run: # Username and password is set through $DEPLOYMENT_USERNAME and $DEPLOYMENT_PASSWORD
+          name: Create deployment request for syfoteksterproxy in prod
+          command: deployment-cli deploy create --cluster=prod-sbs --repository=navikt/syfoproxy --team=teamsykefravr -r=nais.yaml --version=$CIRCLE_SHA1 --vars=syfotekster/prod-sbs.json
+      - run: # Username and password is set through $DEPLOYMENT_USERNAME and $DEPLOYMENT_PASSWORD
+          name: Create deployment request for syfosmregisterproxy in prod
+          command: deployment-cli deploy create --cluster=prod-sbs --repository=navikt/syfoproxy --team=teamsykefravr -r=nais.yaml --version=$CIRCLE_SHA1 --vars=syfosmregister/prod-sbs.json
 workflows:
   version: 2
   build_and_deploy:
