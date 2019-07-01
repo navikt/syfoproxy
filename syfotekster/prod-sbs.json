@@ -1,6 +1,7 @@
 {
-    "application_name": "syfoteksterproxy",
-    "ingresses": [
-        "https://syfoteksterproxy.nav.no"
-    ]
+  "application_name": "syfoteksterproxy",
+  "ingresses": [
+    "https://syfoteksterproxy.nais.oera.no",
+    "https://syfoteksterproxy.nav.no"
+  ]
 }
