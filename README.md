@@ -15,7 +15,7 @@ For å sette opp api-gateway ressurser automatisk, bruk [restgw-iac](https://git
 ### Sette opp credentials for ny proxy
 `credentials.env` filen må legges til i Vault for hver proxyapp. Dette gjøres ved å først lage en pull request til 
 [vault-iac](https://github.com/navikt/vault-iac) prosjektet på navikt. Etter å ha lagt til appen der, gå til 
-[Vault](https://vault.adeo.no) og sett opp en ny secret med path `<appnavn>prxy/default`, lag en secret med navn 
+[Vault](https://vault.adeo.no) og sett opp en ny secret med path `<appnavn>proxy/default`, lag en secret med navn 
 `credentials.env` den skal ha følgende innhold: 
 
 ```.env
