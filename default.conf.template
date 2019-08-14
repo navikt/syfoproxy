@@ -18,6 +18,6 @@ server {
        proxy_pass ${SERVICE_GATEWAY_URL};
        proxy_set_header x-nav-apiKey ${SERVICE_GATEWAY_KEY};
        proxy_set_header Access-Control-Allow-Credentials true;
-       proxy_set_header Access-Control-Allow-Origin $http_Origin;
+       proxy_set_header Access-Control-Allow-Origin $Origin;
    }
 }
