@@ -17,11 +17,11 @@ server {
    location / {
        proxy_pass ${SERVICE_GATEWAY_URL};
        proxy_set_header x-nav-apiKey ${SERVICE_GATEWAY_KEY};
-       proxy_set_header Access-Control-Allow-Credentials allowed_orign;
+       proxy_set_header Access-Control-Allow-Credentials $allowed_orign;
    }
 }
 
-map $http_Origin allowed_orign {
+map $http_Origin $allowed_orign {
     default "false";
     ~https:\/\/tjenester(|-q1)\.nav\.no "true";
 }
