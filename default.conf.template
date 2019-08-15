@@ -6,7 +6,6 @@ server {
 
    location = /isAlive {
         return 200 "alive";
-        add_header Content-Type text/plain;
    }
 
    location = /isReady {
