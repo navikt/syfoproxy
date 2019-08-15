@@ -14,11 +14,11 @@ server {
         add_header Content-Type text/plain;
    }
 
-   add_header Access-Control-Allow-Origin https://tjenester-q1.nav.no;
-
    location / {
        proxy_pass ${SERVICE_GATEWAY_URL};
        proxy_set_header x-nav-apiKey ${SERVICE_GATEWAY_KEY};
+
+       add_header Access-Control-Allow-Origin '*';
 
        proxy_hide_header 'Access-Control-Allow-Origin';
    }
