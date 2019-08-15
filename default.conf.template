@@ -4,10 +4,6 @@ server {
     listen 80;
     server_name localhost;
 
-   add_header 'Access-Control-Allow-Origin' '*';
-   add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-   add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
-
    location = /isAlive {
         return 200 "alive";
         add_header Content-Type text/plain;
@@ -20,6 +16,9 @@ server {
 
    location / {
        add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+       add_header 'Access-Control-Allow-Origin' '*';
+       add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+       add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
 
        proxy_pass ${SERVICE_GATEWAY_URL};
        proxy_set_header x-nav-apiKey ${SERVICE_GATEWAY_KEY};
