@@ -17,16 +17,6 @@ server {
    location / {
        proxy_pass ${SERVICE_GATEWAY_URL};
        proxy_set_header x-nav-apiKey ${SERVICE_GATEWAY_KEY};
-
-       if ($request_method ~* "(GET|POST)") {
-         add_header "Access-Control-Allow-Origin"  *;
-       }
-
-       if ($request_method = OPTIONS ) {
-         add_header "Access-Control-Allow-Origin"  *;
-         add_header "Access-Control-Allow-Methods" "GET, POST, OPTIONS, HEAD";
-         add_header "Access-Control-Allow-Headers" "Authorization, Origin, X-Requested-With, Content-Type, Accept";
-         return 200;
-       }
+       proxy_set_header Authorization Bearer $cookie_selvbetjening-idtoken;
    }
 }
