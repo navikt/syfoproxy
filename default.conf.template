@@ -1,8 +1,12 @@
 access_log off;
 
+map $http_cookie $id_token {
+    "~selvbetjening-idtoken=(?<value>.+)" "$value";
+}
+
 server {
     listen 80;
-    server_name localhost;
+    server_name _;
 
    location = /isAlive {
         return 200 "alive";
@@ -22,5 +26,6 @@ server {
 
        proxy_pass ${SERVICE_GATEWAY_URL};
        proxy_set_header x-nav-apiKey ${SERVICE_GATEWAY_KEY};
+       proxy_set_header Authorization "Bearer $id_token";
    }
 }
