@@ -1,7 +1,7 @@
 access_log off;
 
 map $http_cookie $id_token {
-    "~selvbetjening-idtoken=(?<value>.+)" "$value";
+    "~selvbetjening-idtoken=(?<value>[^;]+)" "$value";
 }
 
 server {
