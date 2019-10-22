@@ -18,6 +18,10 @@ server {
         add_header Content-Type text/plain;
    }
 
+   location = /prometheus {
+        stub_status;
+   }
+
    location / {
        if ($request_method = 'OPTIONS') {
            add_header 'Access-Control-Allow-Origin' '${ALLOW_ORIGIN}';
