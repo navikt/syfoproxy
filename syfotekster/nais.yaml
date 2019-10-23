@@ -1,0 +1,38 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: syfoteksterproxy
+  namespace: default
+  labels:
+    team: teamsykefravr
+spec:
+  image: navikt/syfoproxy:{{version}}
+  port: 80
+  team: teamsykefravr
+  liveness:
+    path: /isAlive
+    initialDelay: 0
+    periodSeconds: 5
+    timeout: 1
+    failureThreshold: 3
+  readiness:
+    path: /isReady
+    initialDelay: 0
+    periodSeconds: 5
+    timeout: 1
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+  replicas:
+    min: 1
+    max: 2
+    cpuThresholdPercentage: 90
+  vault:
+    enabled: true
+  ingresses:
+    - "https://syfoteksterproxy.nais.oera.no"
+    - "https://syfoteksterproxy.nav.no"
