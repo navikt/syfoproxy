@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/navikt/syfoproxy.svg?style=svg)](https://circleci.com/gh/navikt/syfoproxy)
+[![Build status](https://github.com/navikt/syfoproxy/workflows/Deploy%20to%20dev%20and%20prod/badge.svg)](https://github.com/navikt/syfoproxy/workflows/Deploy%20to%20dev%20and%20prod/badge.svg)
 
 # Syfoproxy
 
