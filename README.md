@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/navikt/syfoproxy.svg?style=svg)](https://circleci.com/gh/navikt/syfoproxy)
+[![Build status](https://github.com/navikt/syfoproxy/workflows/Deploy%20to%20dev%20and%20prod/badge.svg)](https://github.com/navikt/syfoproxy/workflows/Deploy%20to%20dev%20and%20prod/badge.svg)
 
 # Syfoproxy
 
@@ -25,42 +25,10 @@ export SERVICE_GATEWAY_KEY=<gateway-api-key>
 
 ### Sette opp ny proxy
 - Legg til en mappe med samme navn som appen som skal proxyes. 
-- Opprett `dev-sbs.json` og `prod-sbs.json` i mappen.
+- Opprett `nais-dev.yaml` og `nais.yaml` i mappen.
 
-```json
-{
-  "application_name": "<appnavn>proxy",
-  "ingresses": [
-    "https://<appnavn>proxy.nais.oera-q.local",
-    "https://<appnavn>proxy-q.nav.no"
-  ]
-}
-```
-
-Denne filen bestemmer hvilket navn proxyappen skal ha og hvilke ingresser den skal kunne nåes på. Ingressene vil være 
+Dette er naiserator-filene for proxyappen, og det er først og fremst hvilke ingresser den skal kunne nåes på som vil variere for de ulike proxyappene. Ingressene vil være 
 forskjellig for dev og prod.
 
 Etter filene er satt opp må det legges til et steg i bygg-pipelinen som deployer den nye proxyappen. Legg til et nytt
-`run` steg under `jobs.deploy.steps` for dev og prod.
-
-```yml
-# <appnavn>
-- run: 
-  name: Create deployment request for <appnavn>proxy in development
-  command: | deployment-cli deploy create \
-      --cluster=dev-sbs \
-      --repository=navikt/syfoproxy \
-      --team=teamsykefravr \
-      -r=nais.yaml \
-      --version=$CIRCLE_SHA1 \
-      --vars=<appnavn>/dev-sbs.json
-- run:
-  name: Create deployment request for <appnavn>proxy in prod
-  command: | deployment-cli deploy create \
-      --cluster=prod-sbs \
-      --repository=navikt/syfoproxy \
-      --team=teamsykefravr \
-      -r=nais.yaml \
-      --version=$CIRCLE_SHA1 \
-      --vars=<appnavn>/prod-sbs.json
-```
+deploy-steg i `devdeploy.yaml` og `deploy.yaml` for dev og prod for å deploye den nye proxyappen.

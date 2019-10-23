@@ -1,12 +1,12 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-  name: {{application_name}}
+  name: syfosmregisterproxy
   namespace: default
   labels:
     team: teamsykefravr
 spec:
-  image: navikt/syfoproxy:{{version}}
+  image: "docker.pkg.github.com/navikt/syfoproxy:{{tag}}"
   port: 80
   team: teamsykefravr
   liveness:
@@ -34,6 +34,5 @@ spec:
   vault:
     enabled: true
   ingresses:
-    {{#each ingresses}}
-    - "{{this}}"
-    {{/each}}
+    - "https://syfosmregisterproxy.nais.oera.no"
+    - "https://syfosmregisterproxy.nav.no"

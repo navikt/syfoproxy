@@ -1,7 +1,0 @@
-{
-  "application_name": "syfoteksterproxy",
-  "ingresses": [
-    "https://syfoteksterproxy.nais.oera-q.local",
-    "https://syfoteksterproxy-q.nav.no"
-  ]
-}

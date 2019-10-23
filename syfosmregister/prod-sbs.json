@@ -1,7 +1,0 @@
-{
-  "application_name": "syfosmregisterproxy",
-  "ingresses": [
-    "https://syfosmregisterproxy.nais.oera.no",
-    "https://syfosmregisterproxy.nav.no"
-  ]
-}
