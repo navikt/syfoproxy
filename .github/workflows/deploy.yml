@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - master
+env:
+  IMAGE: docker.pkg.github.com/${{ github.repository }}/syfoproxy:${{ github.sha }}
 jobs:
   build-push-deploy:
     name: Checkout code and create docker tag
@@ -10,15 +12,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
-      - name: Create Docker tag
-        env:
-          NAME: syfoproxy
-        run: |
-          echo "docker.pkg.github.com"/"$GITHUB_REPOSITORY"/"$NAME" > .docker_image
-          echo "$(date "+%Y.%m.%d")-$(git rev-parse --short HEAD)" > .docker_tag
       - name: Build Docker image
         run: |
-          docker build -t $(cat .docker_image):$(cat .docker_tag) .
+          docker build -t ${IMAGE} .
       - name: Login to Github Package Registry
         env:
           DOCKER_USERNAME: x-access-token
@@ -26,36 +22,35 @@ jobs:
         run: |
           echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin docker.pkg.github.com
       - name: Push Docker image
-        run: "docker push $(cat .docker_image):$(cat .docker_tag)"
+        run: |
+          docker push ${IMAGE}
+      - name: deploy syfomockproxy to dev-sbs
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-sbs
+          RESOURCE: syfomock/nais-dev.yaml
       - name: deploy syfoteksterproxy to dev-sbs
-        uses: navikt/deployment-cli/action@a260e84
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: nais/deploy/actions/deploy@v1
         with:
-          cluster: dev-sbs
-          team: teamsykefravr
-          resource: syfotekster/nais-dev.yaml
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-sbs
+          RESOURCE: syfotekster/nais-dev.yaml
       - name: deploy syfosmregisterproxy to dev-sbs
-        uses: navikt/deployment-cli/action@a260e84
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: nais/deploy/actions/deploy@v1
         with:
-          cluster: dev-sbs
-          team: teamsykefravr
-          resource: syfosmregister/nais-dev.yaml
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-sbs
+          RESOURCE: syfosmregister/nais-dev.yaml
       - name: deploy syfoteksterproxy to prod-sbs
-        uses: navikt/deployment-cli/action@a260e84
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: nais/deploy/actions/deploy@v1
         with:
-          cluster: prod-sbs
-          team: teamsykefravr
-          resource: syfotekster/nais.yaml
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: prod-sbs
+          RESOURCE: syfotekster/nais.yaml
       - name: deploy syfosmregisterproxy to prod-sbs
-        uses: navikt/deployment-cli/action@a260e84
-        env:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: nais/deploy/actions/deploy@v1
         with:
-          cluster: prod-sbs
-          team: teamsykefravr
-          resource: syfosmregister/nais.yaml
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: prod-sbs
+          RESOURCE: syfosmregister/nais.yaml
