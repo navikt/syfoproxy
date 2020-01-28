@@ -32,25 +32,25 @@ jobs:
           RESOURCE: syfomock/nais-dev.yaml
       - name: deploy syfoteksterproxy to dev-sbs
         uses: nais/deploy/actions/deploy@v1
-        with:
+        env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-sbs
           RESOURCE: syfotekster/nais-dev.yaml
       - name: deploy syfosmregisterproxy to dev-sbs
         uses: nais/deploy/actions/deploy@v1
-        with:
+        env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-sbs
           RESOURCE: syfosmregister/nais-dev.yaml
       - name: deploy syfoteksterproxy to prod-sbs
         uses: nais/deploy/actions/deploy@v1
-        with:
+        env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-sbs
           RESOURCE: syfotekster/nais.yaml
       - name: deploy syfosmregisterproxy to prod-sbs
         uses: nais/deploy/actions/deploy@v1
-        with:
+        env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-sbs
           RESOURCE: syfosmregister/nais.yaml
