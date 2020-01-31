@@ -38,4 +38,4 @@ spec:
     - "https://syfomockproxy-q.nav.no"
   env:
     - name: ALLOW_ORIGIN
-      value: \*
+      value: *
