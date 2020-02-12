@@ -42,3 +42,9 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-sbs
           RESOURCE: syfomock/nais-dev.yaml
+      - name: deploy sykmeldinger-backendproxy to dev-sbs
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-sbs
+          RESOURCE: sykmeldinger-backend/nais-dev.yaml

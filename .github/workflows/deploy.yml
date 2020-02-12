@@ -54,3 +54,9 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-sbs
           RESOURCE: syfosmregister/nais.yaml
+      - name: deploy sykmeldinger-backend to prod-sbs
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: prod-sbs
+          RESOURCE: sykmeldinger-backend/nais.yaml
