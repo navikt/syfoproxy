@@ -18,32 +18,41 @@ server {
         add_header Content-Type text/plain;
    }
 
+ 
+
    location / {
+      if ($http_origin ~* '${ALLOW_ORIGIN}') {
+         set $cors "true";
+      }
+
        if ($request_method = 'OPTIONS') {
-           add_header 'Access-Control-Allow-Origin' '${ALLOW_ORIGIN}' always;
-
-           add_header 'Access-Control-Allow-Credentials' 'true' always;
-           add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
-
-           add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type' always;
-
-           add_header 'Access-Control-Max-Age' 86400 always;
+          if ($cors = "true") {
+            add_header 'Access-Control-Allow-Origin' $http_origin always;
+            add_header 'Access-Control-Allow-Credentials' 'true' always;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type' always;
+            add_header 'Access-Control-Max-Age' 86400 always;
+           }
            add_header 'Content-Type' 'text/plain charset=UTF-8' always;
            add_header 'Content-Length' 0 always;
            return 204; break;
         }
 
         if ($request_method = 'POST') {
-           add_header 'Access-Control-Allow-Origin' '${ALLOW_ORIGIN}' always;
-           add_header 'Access-Control-Allow-Credentials' 'true' always;
-           add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
-           add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type' always;
+           if ($cors = "true") {
+            add_header 'Access-Control-Allow-Origin' $http_origin always;
+            add_header 'Access-Control-Allow-Credentials' 'true' always;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type' always;
+           }
         }
         if ($request_method = 'GET') {
-           add_header 'Access-Control-Allow-Origin' '${ALLOW_ORIGIN}' always;
-           add_header 'Access-Control-Allow-Credentials' 'true' always;
-           add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
-           add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type' always;
+           if ($cors = "true") {
+            add_header 'Access-Control-Allow-Origin' $http_origin always;
+            add_header 'Access-Control-Allow-Credentials' 'true' always;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type' always;
+           }
         }
 
        proxy_pass ${SERVICE_GATEWAY_URL};
