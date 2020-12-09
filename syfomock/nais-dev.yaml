@@ -36,6 +36,7 @@ spec:
   ingresses:
     - "https://syfomockproxy.nais.oera-q.local"
     - "https://syfomockproxy-q.nav.no"
+    - "https://syfomockproxy.dev.nav.no"
   env:
     - name: ALLOW_ORIGIN
       value: "*" # "https://syfomock.dev-sbs.nais.io"
