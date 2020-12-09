@@ -24,12 +24,6 @@ jobs:
       - name: Push Docker image
         run: |
           docker push ${IMAGE}
-      - name: deploy syfomockproxy to dev-sbs
-        uses: nais/deploy/actions/deploy@v1
-        env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: dev-sbs
-          RESOURCE: syfomock/nais-dev.yaml
       - name: deploy syfoteksterproxy to dev-sbs
         uses: nais/deploy/actions/deploy@v1
         env:
