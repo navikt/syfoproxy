@@ -1,4 +1,4 @@
-FROM nginx
+FROM nginx:1.17
 
 COPY launch.sh .
 COPY default.conf.template /tmp
